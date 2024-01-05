@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./output.css" />
+    <script src="./script.js" type="module" defer></script>
+
+    <script
+      src="https://kit.fontawesome.com/d9e3f55401.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body class="flex bg-background font-ui">
+    <div
+      id="sidebar"
+      class="text-white w-[19vw] h-screen flex flex-col pl-6 pt-10 relative select-none bg-sidebar"
+    >
+      <span class="text-lg mb-3">Sora's Notion</span>
+      <section class="flex flex-col text-lg mb-6 gap-1 text-zinc-400">
+        <span><i class="fa-solid fa-magnifying-glass pr-3"></i>Search</span>
+        <span><i class="fa-regular fa-clock pr-3"></i>Updates</span>
+        <span><i class="fa-solid fa-gear pr-3"></i>Settings & new members</span>
+        <span><i class="fa-solid fa-circle-plus pr-3"></i>New page</span>
+      </section>
+
+      <ul class="text-lg mb-6 text-zinc-400">
+        <li><i class="fa-solid fa-file pr-3 mb-2"></i>Starting with notion</li>
+        <li class="text-white mr-3 mb-1 p-1 bg-zinc-800 rounded-lg">
+          <i class="fa-solid fa-scissors pr-3 mb-2"></i>Task list
+        </li>
+        <li><i class="fa-solid fa-location-pin pr-3 mb-2"></i>Clips</li>
+        <li><i class="fa-solid fa-user pr-3 mb-2"></i>Personal Home</li>
+        <li><i class="fa-solid fa-book pr-3 mb-2"></i>Diary</li>
+        <li><i class="fa-solid fa-plus pr-3 mb-2"></i>Add a page</li>
+      </ul>
+
+      <section class="flex flex-col flex-1 text-lg mb-6 gap-2 text-zinc-400">
+        <span
+          ><i class="fa-solid fa-user-plus pr-3"></i>Create a teamspace</span
+        >
+        <span><i class="fa-solid fa-address-card pr-3"></i>Templates</span>
+        <span><i class="fa-solid fa-download pr-3"></i>Import</span>
+        <span><i class="fa-solid fa-trash pr-3"></i>Trash</span>
+      </section>
+
+      <button
+        class="border border-zinc-500 absolute bottom-4 left-4 py-3 rounded-lg w-[90%]"
+      >
+        View plans
+      </button>
+    </div>
+    <main class="text-white gap-12 grid grid-cols-3 w-screen p-20">
+      <div class="flex flex-col gap-3 lane" id="todo">
+        <div class="flex flex-col gap-3">
+          <h3
+            class="bg-red-900 rounded-2xl w-fit pr-4 pl-2 text-left flex items-center"
+          >
+            <span class="text-red-700 text-2xl mr-1">⦿</span>To Do
+          </h3>
+          <div
+            class="py-4 px-3 bg-todo rounded-lg cursor-grab draggable"
+            draggable="true"
+          >
+            Password Change
+          </div>
+        </div>
+        <div
+          class="py-3 px-3 hover:bg-todo rounded-lg text-zinc-500 hover:cursor-pointer z-50"
+          id="new-todo"
+        >
+          <i class="fa-solid fa-plus pr-3 mb-2"></i>New
+        </div>
+        <form
+          action=""
+          class="py-3 px-3 hover:bg-todo rounded-lg text-zinc-500 hidden"
+          id="todo-form"
+        >
+          <input
+            type="text"
+            id="todo-input"
+            class="bg-transparent border-zinc-400 border w-3/4 rounded-lg py-1 text-white pl-6"
+          />
+
+          <button type="button" id="cancel" class="text-2xl ml-12">X</button>
+        </form>
+      </div>
+      <div id="progress" class="flex flex-col gap-3 lane">
+        <h3
+          class="bg-sky-800 rounded-2xl w-fit pr-4 pl-2 text-left flex items-center"
+        >
+          <span class="text-blue-500 text-2xl mr-1">⦿</span>In progress
+        </h3>
+      </div>
+      <div id="done" class="flex flex-col gap-3 lane">
+        <h3
+          class="bg-green-900 rounded-2xl w-fit pr-4 pl-2 text-left flex items-center"
+        >
+          <span class="text-green-700 text-2xl mr-1">⦿</span>Done
+        </h3>
+      </div>
+    </main>
+
+    <template id="todo-template">
+      <div
+        class="py-4 px-6 bg-todo rounded-lg cursor-grab flex group draggable"
+        draggable="true"
+      >
+        <span class="flex-1"></span>
+        <button class="group-hover:block hidden px-1">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </div>
+    </template>
+  </body>
+</html>

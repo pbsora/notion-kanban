@@ -3,3 +3,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .drag {
+    @apply border-dashed border bg-zinc-900;
+  }
+}
