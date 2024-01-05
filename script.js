@@ -11,6 +11,8 @@ const lanes = document.querySelectorAll(".lane");
 
 import { Todo, TodoList } from "./todo.js";
 
+//Get existing tasks from Local Storage
+initialDOMLoad();
 //Adds drag-events to existing tasks
 dragEvents();
 
@@ -28,27 +30,34 @@ todoForm.addEventListener("submit", (e) => {
   todoInput.value = "";
   TodoList.addToList(todo);
 
-  const newTodo = todoTemplate.content.cloneNode(true);
-  newTodo.querySelector("span").textContent = todo.content;
-  newTodo.querySelector("div").setAttribute("id", todo.id);
-  newTodo
-    .querySelector("button")
-    .addEventListener("click", () => todo.deleteTodo());
+  const node = createNode(todo);
 
   hideInput();
-  todoTab.insertBefore(newTodo, newTodoBtn);
+  todoTab.insertBefore(node, newTodoBtn);
   dragEvents();
 });
 
 function displayInput() {
   newTodoBtn.classList.toggle("hidden");
   todoForm.classList.toggle("hidden");
-  todoInput.focus();
+  setTimeout(() => {
+    todoInput.focus();
+  }, 100);
 }
 
 function hideInput() {
   newTodoBtn.classList.toggle("hidden");
   todoForm.classList.toggle("hidden");
+}
+
+function createNode(todo) {
+  const newTodo = todoTemplate.content.cloneNode(true);
+  newTodo.querySelector("span").textContent = todo.content;
+  newTodo.querySelector("div").setAttribute("id", todo.id);
+  newTodo
+    .querySelector("button")
+    .addEventListener("click", () => todo.deleteTodo());
+  return newTodo;
 }
 
 function dragEvents() {
@@ -62,7 +71,26 @@ function dragEvents() {
     item.addEventListener("dragend", () => {
       item.classList.remove("is-dragging");
       item.classList.toggle("drag");
+      TodoList.update(item.id, item.parentElement.id);
     });
+  });
+}
+
+function initialDOMLoad() {
+  TodoList.getFromLS();
+  TodoList.list.forEach((todo) => {
+    const node = createNode(todo);
+    switch (todo.status) {
+      case "todo":
+        todoTab.insertBefore(node, newTodoBtn);
+        break;
+      case "progress":
+        progressTab.appendChild(node);
+        break;
+      case "done":
+        doneTab.appendChild(node);
+        break;
+    }
   });
 }
 
@@ -74,4 +102,9 @@ lanes.forEach((lane) => {
     if (lane.id === "todo") lane.insertBefore(curTask, newTodoBtn);
     else lane.appendChild(curTask);
   });
+});
+
+window.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") displayInput();
+  else if (e.key === "Escape") hideInput();
 });
