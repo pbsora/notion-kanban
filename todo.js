@@ -2,10 +2,11 @@ export class TodoList {
   static list = [];
 
   static getFromLS() {
-    const todos = JSON.parse(localStorage.getItem("todos")).map(
-      (todo) => new Todo(todo.content, todo.id, todo.status)
-    );
-    if (todos) this.list = [...todos];
+    const todos = JSON.parse(localStorage.getItem("todos"));
+    if (todos) {
+      todos = todos.map((todo) => new Todo(todo.content, todo.id, todo.status));
+      this.list = [...todos];
+    }
   }
 
   static syncLS() {
