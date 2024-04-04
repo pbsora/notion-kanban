@@ -98,9 +98,10 @@ lanes.forEach((lane) => {
   lane.addEventListener("dragover", (e) => {
     e.preventDefault();
     const curTask = document.querySelector(".is-dragging");
+    const first = lane.querySelectorAll(".draggable")[0];
 
     if (lane.id === "todo") lane.insertBefore(curTask, newTodoBtn);
-    else lane.appendChild(curTask);
+    else lane.insertBefore(curTask, first);
   });
 });
 
